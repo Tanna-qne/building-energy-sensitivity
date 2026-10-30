@@ -1,26 +1,26 @@
 ﻿model,case,success,elec_kwh,gas_kwh,kwh,saving_elec_kwh,saving_gas_kwh,saving_pct,saving_twd,capex_twd,payback_years,seconds,error,floor_m2,glass_m2,eui_kwh_m2
-5ZoneAirCooled,baseline,True,43510.1,19018.4,62528.5,0.0,0.0,0.0,0,0,,15.0,,463.6,60.9,134.9
-5ZoneAirCooled,lights_-30%,True,36147.3,20139.2,56286.5,7362.8,-1120.8,10.0,31451,278160,8.8,14.8,,463.6,60.9,121.4
-5ZoneAirCooled,film_shgc0.30,True,42262.5,20134.1,62396.6,1247.6,-1115.7,0.2,3941,73080,18.5,14.4,,463.6,60.9,134.6
-5ZoneAirCooled,lights+film,True,34928.1,20455.1,55383.2,8582.0,-1436.7,11.4,36464,351240,9.6,13.0,,463.6,60.9,119.5
-5ZoneAirCooled,infil_x0.5,True,43521.0,18051.8,61572.8,-10.9,966.6,1.5,1401,0,,13.6,,463.6,60.9,132.8
+5ZoneAirCooled,baseline,True,43510.1,19018.4,62528.5,0.0,0.0,0.0,0,0,,14.6,,463.6,60.9,134.9
+5ZoneAirCooled,lights_-30%,True,36147.3,20139.2,56286.5,7362.8,-1120.8,10.0,31451,278160,8.8,13.4,,463.6,60.9,121.4
+5ZoneAirCooled,film_shgc0.30,True,42269.7,20575.8,62845.5,1240.4,-1557.4,-0.5,3246,73080,22.5,12.8,原窗 SHGC 0.76 → 貼膜後 0.30(U 值維持 3.22),463.6,60.9,135.6
+5ZoneAirCooled,lights+film,True,34938.8,20917.9,55856.7,8571.3,-1899.5,10.7,35722,351240,9.8,12.8,原窗 SHGC 0.76 → 貼膜後 0.30(U 值維持 3.22),463.6,60.9,120.5
+5ZoneAirCooled,infil_x0.5,True,43521.0,18051.8,61572.8,-10.9,966.6,1.5,1401,0,,13.2,,463.6,60.9,132.8
 5ZoneAirCooledConvCoef,baseline,True,43822.4,20328.6,64151.0,0.0,0.0,0.0,0,0,,14.4,,463.6,60.9,138.4
-5ZoneAirCooledConvCoef,lights_-30%,True,36567.0,20926.6,57493.6,7255.4,-598.0,10.4,31752,278160,8.8,14.4,,463.6,60.9,124.0
-5ZoneAirCooledConvCoef,film_shgc0.30,True,42935.6,21187.6,64123.2,886.8,-859.0,0.0,2702,73080,27.0,14.6,,463.6,60.9,138.3
-5ZoneAirCooledConvCoef,lights+film,True,35732.3,21776.1,57508.4,8090.1,-1447.5,10.4,34234,351240,10.3,13.0,,463.6,60.9,124.0
-5ZoneAirCooledConvCoef,infil_x0.5,True,43822.3,19986.0,63808.3,0.1,342.6,0.5,514,0,,13.4,,463.6,60.9,137.6
-5ZoneAirCooledDemandLimiting,baseline,True,39108.0,19199.7,58307.7,0.0,0.0,0.0,0,0,,29.9,,463.6,60.9,125.8
-5ZoneAirCooledDemandLimiting,lights_-30%,True,38259.4,18408.2,56667.6,848.6,791.5,2.8,5006,278160,55.6,28.5,,463.6,60.9,122.2
-5ZoneAirCooledDemandLimiting,film_shgc0.30,True,38730.9,17754.5,56485.4,377.1,1445.2,3.1,3865,73080,18.9,26.7,,463.6,60.9,121.8
-5ZoneAirCooledDemandLimiting,lights+film,True,38132.0,16706.4,54838.4,976.0,2493.3,5.9,8132,351240,43.2,25.9,,463.6,60.9,118.3
-5ZoneAirCooledDemandLimiting,infil_x0.5,True,39107.7,18930.2,58037.9,0.3,269.5,0.5,406,0,,26.5,,463.6,60.9,125.2
-HVACTemplate-5ZoneVAVFanPowered,baseline,True,55254.9,14927.3,70182.2,0.0,0.0,0.0,0,0,,23.2,,463.6,60.9,151.4
-HVACTemplate-5ZoneVAVFanPowered,lights_-30%,True,47237.2,15585.0,62822.2,8017.7,-657.7,10.5,35093,278160,7.9,23.4,,463.6,60.9,135.5
-HVACTemplate-5ZoneVAVFanPowered,film_shgc0.30,True,52497.1,16286.6,68783.7,2757.8,-1359.3,2.0,10371,73080,7.0,20.8,,463.6,60.9,148.4
-HVACTemplate-5ZoneVAVFanPowered,lights+film,True,44508.8,17111.8,61620.6,10746.1,-2184.5,12.2,45081,351240,7.8,20.0,,463.6,60.9,132.9
-HVACTemplate-5ZoneVAVFanPowered,infil_x0.5,True,55155.6,14909.4,70065.0,99.3,17.9,0.2,474,0,,20.8,,463.6,60.9,151.1
-HVACTemplate-5ZoneBaseboardHeat,baseline,True,35864.7,1109.6,36974.3,0.0,0.0,0.0,0,0,,10.2,,463.6,60.9,79.8
+5ZoneAirCooledConvCoef,lights_-30%,True,36567.0,20926.6,57493.6,7255.4,-598.0,10.4,31752,278160,8.8,13.1,,463.6,60.9,124.0
+5ZoneAirCooledConvCoef,film_shgc0.30,True,42945.6,21345.0,64290.6,876.8,-1016.4,-0.2,2421,73080,30.2,12.6,原窗 SHGC 0.76 → 貼膜後 0.30(U 值維持 3.22),463.6,60.9,138.7
+5ZoneAirCooledConvCoef,lights+film,True,35742.7,21938.8,57681.5,8079.7,-1610.2,10.1,33943,351240,10.3,12.8,原窗 SHGC 0.76 → 貼膜後 0.30(U 值維持 3.22),463.6,60.9,124.4
+5ZoneAirCooledConvCoef,infil_x0.5,True,43822.3,19986.0,63808.3,0.1,342.6,0.5,514,0,,13.0,,463.6,60.9,137.6
+5ZoneAirCooledDemandLimiting,baseline,True,39108.0,19199.7,58307.7,0.0,0.0,0.0,0,0,,28.3,,463.6,60.9,125.8
+5ZoneAirCooledDemandLimiting,lights_-30%,True,38259.4,18408.2,56667.6,848.6,791.5,2.8,5006,278160,55.6,27.1,,463.6,60.9,122.2
+5ZoneAirCooledDemandLimiting,film_shgc0.30,True,38724.5,18051.1,56775.6,383.5,1148.6,2.6,3449,73080,21.2,26.3,原窗 SHGC 0.76 → 貼膜後 0.30(U 值維持 3.22),463.6,60.9,122.5
+5ZoneAirCooledDemandLimiting,lights+film,True,38134.6,17004.5,55139.1,973.4,2195.2,5.4,7673,351240,45.8,26.5,原窗 SHGC 0.76 → 貼膜後 0.30(U 值維持 3.22),463.6,60.9,118.9
+5ZoneAirCooledDemandLimiting,infil_x0.5,True,39107.7,18930.2,58037.9,0.3,269.5,0.5,406,0,,25.7,,463.6,60.9,125.2
+HVACTemplate-5ZoneVAVFanPowered,baseline,True,55254.9,14927.3,70182.2,0.0,0.0,0.0,0,0,,22.1,,463.6,60.9,151.4
+HVACTemplate-5ZoneVAVFanPowered,lights_-30%,True,47237.2,15585.0,62822.2,8017.7,-657.7,10.5,35093,278160,7.9,21.2,,463.6,60.9,135.5
+HVACTemplate-5ZoneVAVFanPowered,film_shgc0.30,True,52527.5,16496.0,69023.5,2727.4,-1568.7,1.7,9920,73080,7.4,20.4,原窗 SHGC 0.76 → 貼膜後 0.30(U 值維持 3.22),463.6,60.9,148.9
+HVACTemplate-5ZoneVAVFanPowered,lights+film,True,44541.9,17330.2,61872.1,10713.0,-2402.9,11.8,44604,351240,7.9,20.0,原窗 SHGC 0.76 → 貼膜後 0.30(U 值維持 3.22),463.6,60.9,133.5
+HVACTemplate-5ZoneVAVFanPowered,infil_x0.5,True,55155.6,14909.4,70065.0,99.3,17.9,0.2,474,0,,21.0,,463.6,60.9,151.1
+HVACTemplate-5ZoneBaseboardHeat,baseline,True,35864.7,1109.6,36974.3,0.0,0.0,0.0,0,0,,10.0,,463.6,60.9,79.8
 HVACTemplate-5ZoneBaseboardHeat,lights_-30%,True,28761.6,1226.8,29988.4,7103.1,-117.2,18.9,31788,278160,8.8,10.2,,463.6,60.9,64.7
-HVACTemplate-5ZoneBaseboardHeat,film_shgc0.30,True,35759.0,1238.9,36997.9,105.7,-129.3,-0.1,282,73080,259.4,9.8,,463.6,60.9,79.8
-HVACTemplate-5ZoneBaseboardHeat,lights+film,True,28647.7,1378.8,30026.5,7217.0,-269.2,18.8,32073,351240,11.0,9.8,,463.6,60.9,64.8
+HVACTemplate-5ZoneBaseboardHeat,film_shgc0.30,True,35758.8,1304.4,37063.2,105.9,-194.8,-0.2,184,73080,396.4,10.4,原窗 SHGC 0.76 → 貼膜後 0.30(U 值維持 3.22),463.6,60.9,79.9
+HVACTemplate-5ZoneBaseboardHeat,lights+film,True,28647.3,1452.7,30100.0,7217.4,-343.1,18.6,31964,351240,11.0,10.0,原窗 SHGC 0.76 → 貼膜後 0.30(U 值維持 3.22),463.6,60.9,64.9
 HVACTemplate-5ZoneBaseboardHeat,infil_x0.5,True,35867.9,1003.2,36871.1,-3.2,106.4,0.3,145,0,,10.2,,463.6,60.9,79.5
