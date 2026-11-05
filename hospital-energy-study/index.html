@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>醫院節能研究</title>
+<style>
+:root{--bg:#f6f6f4;--surface:#fcfcfb;--line:#e4e3df;--ink:#0b0b0b;--ink2:#52514e;--muted:#6f6e69;
+ --pos:#2a78d6;--neg:#e34948;--good:#0ca30c;--warn:#fab219;--bad:#d03b3b;--info:#2a78d6;--skip:#8a8984}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121211;--surface:#1a1a19;--line:#33332f;
+ --ink:#f0efec;--ink2:#c3c2b7;--muted:#9d9c95;--pos:#3987e5;--neg:#e66767;--info:#3987e5}}
+:root[data-theme="dark"]{--bg:#121211;--surface:#1a1a19;--line:#33332f;--ink:#f0efec;--ink2:#c3c2b7;--muted:#9d9c95;
+ --pos:#3987e5;--neg:#e66767;--info:#3987e5}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 system-ui,-apple-system,"Segoe UI","Microsoft JhengHei",sans-serif}
+main{max-width:880px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:24px;margin:0 0 4px} h2{font-size:20px;margin:36px 0 6px} h3{font-size:16px;margin:26px 0 10px;color:var(--ink2)}
+.desc,.muted,small{color:var(--muted)}
+.headline{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--pos);border-radius:10px;padding:14px 16px;font-size:17px;font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink2)}
+.tile .big{display:block;font-size:22px;font-weight:700;color:var(--ink)} .tile small{display:block;font-size:12px}
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px}
+.chart .row{display:grid;grid-template-columns:minmax(6em,9em) 1fr auto;align-items:center;gap:10px;padding:7px 0;border-radius:6px}
+.chart .row:hover{background:var(--bg)} .chart .lbl{color:var(--ink2);font-size:14px}
+.chart .val{color:var(--ink2);font-size:14px;font-variant-numeric:tabular-nums;min-width:8.5em;text-align:right}
+.chart .row:hover .val{color:var(--ink)}
+.chart .track{position:relative;height:18px} .chart .zero{position:absolute;top:-6px;bottom:-6px;width:1px;background:var(--line)}
+.chart .bar{position:absolute;top:0;height:100%;border-radius:4px} .chart .pos{background:var(--pos)} .chart .neg{background:var(--neg)}
+.cards{display:grid;gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.card .top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.card p{margin:6px 0} .card ul{margin:6px 0 0;padding-left:20px;color:var(--ink2)}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);
+ border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.badge i{font-style:normal;display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;color:#fff;font-size:12px}
+.badge.good i{background:var(--good)} .badge.ok i{background:var(--warn);color:#0b0b0b} .badge.bad i{background:var(--bad)}
+.badge.info i{background:var(--info)} .badge.skip i{background:var(--skip)}
+.notes{color:var(--ink2);font-size:14px} .notes li{margin:4px 0}
+.scroll{overflow-x:auto} table.cmp{border-collapse:collapse;width:100%;background:var(--surface);font-size:14px}
+table.cmp th,table.cmp td{border:1px solid var(--line);padding:6px 10px;text-align:right;white-space:nowrap}
+table.cmp th{color:var(--ink2);font-weight:600} table.cmp .m{text-align:left} table.cmp a{color:var(--pos)}
+.tag{font-size:12px;border:1px solid var(--good);color:var(--ink);border-radius:999px;padding:0 8px;margin-left:6px}
+</style></head><body><main>
+<h1>醫院節能研究:ASHRAE 90.1 基準建築 vs 設計案</h1>
+
+<section><h2>專案概要</h2>
+<ul>
+<li><b>建築</b>:美國能源部(DOE)/ PNNL 的醫院原型模型,樓地板 22,436 m²,24 小時運轉,冰水主機 + 鍋爐 + 多台空調箱。</li>
+<li><b>標準</b>:ASHRAE 90.1-2022 Appendix G(性能評估法)。<b>基準建築</b>是依規範產生的比較基準,<b>設計案</b>是實際設計。</li>
+<li><b>地點</b>:Tampa, Florida(氣候區 2A,炎熱潮濕)。</li>
+<li><b>方法</b>:官方 EnergyPlus 22.1 模型自動升級到 26.2,模擬一整年,再逐項測試 8 種節能措施的效益與回本年數。</li>
+</ul></section>
+
+<section><h2>結論</h2>
+<ul>
+<li><b>設計案比基準建築少用 30.9% 能源</b>(官方結果 30.9%)。</li>
+<li>基準建築最划算的改善是<b>換省電燈具</b>(約 7 年回本)與<b>屋頂反射漆</b>(約 9 年)。</li>
+<li>高效率空調省最多能源,但投資大、回本慢;醫院以內部負載為主,<b>加強牆與屋頂隔熱幾乎沒有效果</b>。</li>
+<li>原有玻璃已經能擋大部分日射(SHGC 0.22–0.25),貼隔熱膜不划算,報告中自動略過。</li>
+</ul></section>
+
+<section><h2>模型驗證:和官方結果比對</h2>
+<p class="muted">同一個模型,我們的模擬(EnergyPlus 26.2)對照 PNNL 官方結果(EnergyPlus 22.1)。差距在 2% 以內,模型可信;
+殘差來自氣象站不同(我們用 Tampa 國際機場,官方用附近的 MacDill 空軍基地)與軟體版本。</p>
+<table class="cmp"><thead><tr><th class="m">項目(kWh/年)</th><th>本次模擬</th><th>官方</th><th>差距</th></tr></thead>
+<tbody><tr><td class="m">基準建築 用電</td><td>7,039,520</td><td>7,023,472</td><td>+0.2%</td></tr><tr><td class="m">基準建築 天然氣</td><td>2,458,501</td><td>2,470,478</td><td>-0.5%</td></tr><tr><td class="m">設計案 用電</td><td>5,303,441</td><td>5,277,272</td><td>+0.5%</td></tr><tr><td class="m">設計案 天然氣</td><td>1,263,372</td><td>1,283,103</td><td>-1.5%</td></tr></tbody></table>
+</section>
+
+<section><h2>方案比較</h2>
+<div class="headline">一年能源費用最低的是「設計案(Proposed)」:US$ 739,982,比最高的「基準建築(Baseline)」每年少 US$ 273,495(少 27%)。</div>
+<h3>每個方案一年的能源費用</h3>
+<div class="chart" role="img" aria-label="每個方案一年的能源費用">
+<div class="row" title="Hospital_Baseline:US$ 1,013,478"><span class="lbl">基準建築(Baseline)</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:100.0%"></span></span><span class="val">US$ 1,013,478</span></div>
+<div class="row" title="Hospital_Proposed:US$ 739,982"><span class="lbl">設計案(Proposed)</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:73.0%"></span></span><span class="val">US$ 739,982</span></div>
+</div>
+<h3>對照表</h3>
+<div class="scroll"><table class="cmp"><thead><tr><th class="m">方案</th><th>樓地板 m²</th><th>一年能源費用</th>
+<th>每 m² 費用</th><th>EUI 度/m²·年</th><th class="m">最划算的措施</th></tr></thead><tbody><tr><td class="m"><a href="#Hospital_Baseline">基準建築(Baseline)</a></td><td>22,436</td><td>US$ 1,013,478</td><td>US$ 45.17</td><td>423</td><td class="m">換省電燈具(約 7 年回本)</td></tr><tr><td class="m"><a href="#Hospital_Proposed">設計案(Proposed)</a> <b class="tag">✓ 最省</b></td><td>22,436</td><td>US$ 739,982</td><td>US$ 32.98</td><td>293</td><td class="m">換省電燈具(約 14 年回本)</td></tr></tbody></table></div>
+<p class="muted">點方案名稱可以跳到該方案的詳細說明。</p></section><section id="Hospital_Baseline"><h2>基準建築(Baseline)</h2>
+<p class="desc">樓地板 22,436 m²。</p>
+<div class="headline">最划算的是「換省電燈具」:每年省 US$ 60,762,投資約 US$ 448,722,大約 7 年回本。</div>
+<h3>這棟建築一年用多少能源</h3>
+<div class="tiles">
+<div class="tile"><span class="big">7,039,520</span> 度電<small>約 US$ 915,138</small></div>
+<div class="tile"><span class="big">2,458,501</span> 度天然氣<small>約 US$ 98,340(暖氣、熱水)</small></div>
+<div class="tile"><span class="big">US$ 1,013,478</span> 一年能源費用</div>
+<div class="tile"><span class="big">423</span> 度 / m²·年<small>每平方公尺一年用多少能源(EUI),越低越省</small></div>
+</div>
+<h3>每個節能措施一年省多少錢</h3>
+<div class="chart" role="img" aria-label="每個措施一年省下的錢">
+<div class="row" title="換省電燈具:每年省 US$ 60,762"><span class="lbl">換省電燈具</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:89.4%"></span></span><span class="val">+US$ 60,762</span></div>
+<div class="row" title="加強門窗氣密:每年省 US$ 495"><span class="lbl">加強門窗氣密</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:0.7%"></span></span><span class="val">+US$ 495</span></div>
+<div class="row" title="屋頂塗反射漆:每年省 US$ 4,775"><span class="lbl">屋頂塗反射漆</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:7.0%"></span></span><span class="val">+US$ 4,775</span></div>
+<div class="row" title="換節能設備:每年省 US$ 67,931"><span class="lbl">換節能設備</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:100.0%"></span></span><span class="val">+US$ 67,931</span></div>
+<div class="row" title="加強牆與屋頂隔熱:每年省 US$ 6,691"><span class="lbl">加強牆與屋頂隔熱</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:9.8%"></span></span><span class="val">+US$ 6,691</span></div>
+<div class="row" title="換高效率空調:每年省 US$ 59,872"><span class="lbl">換高效率空調</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:88.1%"></span></span><span class="val">+US$ 59,872</span></div>
+</div>
+<h3>逐項說明</h3>
+<div class="cards">
+<div class="card"><div class="top"><b>換省電燈具</b><span class="badge good"><i>✓</i>值得考慮</span></div><p>大約 7 年就能把投資省回來。</p><p class="muted">把照明用電減少 30%,例如換成 LED。</p><ul><li>總能源少用 4.6%</li><li>少用電 480,444 度、多用天然氣 42,399 度(燈具發的熱變少,冬天要靠暖氣補回來)</li><li>投資約 US$ 448,722</li><li>電價漲 30% 時約 6 年</li><li>電價漲 80% 時約 4 年</li></ul></div>
+<div class="card"><div class="top"><b>外窗貼隔熱膜</b><span class="badge skip"><i>–</i>這次沒做</span></div><p>原本的玻璃已經能擋大部分日射(SHGC 0.25),貼膜幫助不大</p><p class="muted">在玻璃外側貼膜,擋掉一部分太陽熱;夏天冷氣省,冬天暖氣可能多用一點。</p></div>
+<div class="card"><div class="top"><b>燈具和貼膜一起做</b><span class="badge skip"><i>–</i>這次沒做</span></div><p>不做組合:原本的玻璃已經能擋大部分日射(SHGC 0.25),貼膜幫助不大</p><p class="muted">上面兩項同時做的效果。</p></div>
+<div class="card"><div class="top"><b>加強門窗氣密</b><span class="badge info"><i>i</i>只算了省多少</span></div><p>沒有這項的施工成本資料,所以算不出幾年回本。</p><p class="muted">把從縫隙漏進來的外氣減半,例如換氣密條、修門窗。</p><ul><li>總能源少用 0.1%</li><li>少用電 2,938 度、少用天然氣 2,824 度</li></ul></div>
+<div class="card"><div class="top"><b>屋頂塗反射漆</b><span class="badge ok"><i>!</i>看情況</span></div><p>要 9 年左右才回本,看預算和設備壽命決定。</p><p class="muted">在屋頂塗淺色反射塗料(冷屋頂),少吸太陽熱;夏天頂樓比較不熱,冬天暖氣可能多用一點。</p><ul><li>總能源少用 0.4%</li><li>少用電 35,706 度、少用天然氣 3,330 度</li><li>投資約 US$ 44,873</li><li>電價漲 30% 時約 7 年</li><li>電價漲 80% 時約 5 年</li></ul><p class="muted">屋頂日射吸收率 0.70 → 0.30</p></div>
+<div class="card"><div class="top"><b>換節能設備</b><span class="badge info"><i>i</i>只算了省多少</span></div><p>沒有這項的施工成本資料,所以算不出幾年回本。</p><p class="muted">電腦、影印機等插座用電減少 20%,例如汰換時選節能標章產品。</p><ul><li>總能源少用 4.9%</li><li>少用電 545,893 度、多用天然氣 75,866 度(設備發的熱變少,冬天要靠暖氣補回來)</li></ul></div>
+<div class="card"><div class="top"><b>加強牆與屋頂隔熱</b><span class="badge bad"><i>✕</i>不太划算</span></div><p>回本要超過 50 年,通常比設備壽命還長。</p><p class="muted">外牆和屋頂加厚保溫(換成較新、較嚴格的建築節能規範),冬天少漏熱、夏天少進熱。</p><ul><li>總能源少用 0.8%</li><li>少用電 42,124 度、少用天然氣 30,375 度</li><li>投資約 US$ 429,255</li><li>電價漲 30% 時超過 50 年</li><li>電價漲 80% 時約 39 年</li></ul><p class="muted">外牆 U 0.69 → 0.25、屋頂 U 0.36 → 0.18 W/m²K(在原構造加一層保溫)</p></div>
+<div class="card"><div class="top"><b>換高效率空調</b><span class="badge bad"><i>✕</i>不太划算</span></div><p>回本要約 34 年,通常比設備壽命還長。</p><p class="muted">同一種空調系統,換成更高效率的設備:冷氣 / 冰水主機效率提高 25%、鍋爐與瓦斯加熱提高到 95%、風扇效率至少 70%。</p><ul><li>總能源少用 6.3%</li><li>少用電 398,524 度、少用天然氣 201,600 度</li><li>投資約 US$ 2,019,249</li><li>電價漲 30% 時約 27 年</li><li>電價漲 80% 時約 20 年</li></ul><p class="muted">冰水主機 COP 4.90 → 6.12、鍋爐效率 0.79 → 0.95、風扇效率 0.61 → 0.70</p></div>
+</div></section>
+<section id="Hospital_Proposed"><h2>設計案(Proposed)</h2>
+<p class="desc">樓地板 22,436 m²。</p>
+<div class="headline">最划算的是「換省電燈具」:每年省 US$ 31,898,投資約 US$ 448,722,大約 14 年回本。</div>
+<h3>這棟建築一年用多少能源</h3>
+<div class="tiles">
+<div class="tile"><span class="big">5,303,441</span> 度電<small>約 US$ 689,447</small></div>
+<div class="tile"><span class="big">1,263,372</span> 度天然氣<small>約 US$ 50,535(暖氣、熱水)</small></div>
+<div class="tile"><span class="big">US$ 739,982</span> 一年能源費用</div>
+<div class="tile"><span class="big">293</span> 度 / m²·年<small>每平方公尺一年用多少能源(EUI),越低越省</small></div>
+</div>
+<h3>每個節能措施一年省多少錢</h3>
+<div class="chart" role="img" aria-label="每個措施一年省下的錢">
+<div class="row" title="換省電燈具:每年省 US$ 31,898"><span class="lbl">換省電燈具</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:51.2%"></span></span><span class="val">+US$ 31,898</span></div>
+<div class="row" title="加強門窗氣密:每年省 US$ 176"><span class="lbl">加強門窗氣密</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:0.5%"></span></span><span class="val">+US$ 176</span></div>
+<div class="row" title="屋頂塗反射漆:每年省 US$ 1,036"><span class="lbl">屋頂塗反射漆</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:1.7%"></span></span><span class="val">+US$ 1,036</span></div>
+<div class="row" title="換節能設備:每年省 US$ 62,332"><span class="lbl">換節能設備</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:100.0%"></span></span><span class="val">+US$ 62,332</span></div>
+<div class="row" title="加強牆與屋頂隔熱:每年省 US$ 845"><span class="lbl">加強牆與屋頂隔熱</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:1.4%"></span></span><span class="val">+US$ 845</span></div>
+<div class="row" title="換高效率空調:每年省 US$ 48,411"><span class="lbl">換高效率空調</span><span class="track"><span class="zero" style="left:0.0%"></span><span class="bar pos" style="left:0.0%;width:77.7%"></span></span><span class="val">+US$ 48,411</span></div>
+</div>
+<h3>逐項說明</h3>
+<div class="cards">
+<div class="card"><div class="top"><b>換省電燈具</b><span class="badge ok"><i>!</i>看情況</span></div><p>要 14 年左右才回本,看預算和設備壽命決定。</p><p class="muted">把照明用電減少 30%,例如換成 LED。</p><ul><li>總能源少用 3.5%</li><li>少用電 251,287 度、多用天然氣 19,224 度(燈具發的熱變少,冬天要靠暖氣補回來)</li><li>投資約 US$ 448,722</li><li>電價漲 30% 時約 11 年</li><li>電價漲 80% 時約 8 年</li></ul></div>
+<div class="card"><div class="top"><b>外窗貼隔熱膜</b><span class="badge skip"><i>–</i>這次沒做</span></div><p>原本的玻璃已經能擋大部分日射(SHGC 0.22),貼膜幫助不大</p><p class="muted">在玻璃外側貼膜,擋掉一部分太陽熱;夏天冷氣省,冬天暖氣可能多用一點。</p></div>
+<div class="card"><div class="top"><b>燈具和貼膜一起做</b><span class="badge skip"><i>–</i>這次沒做</span></div><p>不做組合:原本的玻璃已經能擋大部分日射(SHGC 0.22),貼膜幫助不大</p><p class="muted">上面兩項同時做的效果。</p></div>
+<div class="card"><div class="top"><b>加強門窗氣密</b><span class="badge info"><i>i</i>只算了省多少</span></div><p>沒有這項的施工成本資料,所以算不出幾年回本。</p><p class="muted">把從縫隙漏進來的外氣減半,例如換氣密條、修門窗。</p><ul><li>總能源少用 0.0%</li><li>少用電 1,254 度、少用天然氣 325 度</li></ul></div>
+<div class="card"><div class="top"><b>屋頂塗反射漆</b><span class="badge bad"><i>✕</i>不太划算</span></div><p>回本要約 43 年,通常比設備壽命還長。</p><p class="muted">在屋頂塗淺色反射塗料(冷屋頂),少吸太陽熱;夏天頂樓比較不熱,冬天暖氣可能多用一點。</p><ul><li>總能源少用 0.1%</li><li>少用電 7,979 度、多用天然氣 19 度(屋頂冬天也少吸太陽熱,暖氣要多開)</li><li>投資約 US$ 44,873</li><li>電價漲 30% 時約 33 年</li><li>電價漲 80% 時約 24 年</li></ul><p class="muted">屋頂日射吸收率 0.45 → 0.30</p></div>
+<div class="card"><div class="top"><b>換節能設備</b><span class="badge info"><i>i</i>只算了省多少</span></div><p>沒有這項的施工成本資料,所以算不出幾年回本。</p><p class="muted">電腦、影印機等插座用電減少 20%,例如汰換時選節能標章產品。</p><ul><li>總能源少用 6.9%</li><li>少用電 490,795 度、多用天然氣 36,792 度(設備發的熱變少,冬天要靠暖氣補回來)</li></ul></div>
+<div class="card"><div class="top"><b>加強牆與屋頂隔熱</b><span class="badge bad"><i>✕</i>不太划算</span></div><p>回本要超過 50 年,通常比設備壽命還長。</p><p class="muted">外牆和屋頂加厚保溫(換成較新、較嚴格的建築節能規範),冬天少漏熱、夏天少進熱。</p><ul><li>總能源少用 -0.0%</li><li>少用電 10,189 度、多用天然氣 11,982 度(室內的熱變少,冬天要靠暖氣補回來)</li><li>投資約 US$ 429,255</li><li>電價漲 30% 時超過 50 年</li><li>電價漲 80% 時超過 50 年</li></ul><p class="muted">外牆 U 0.94 → 0.25、屋頂 U 0.22 → 0.18 W/m²K(在原構造加一層保溫)</p></div>
+<div class="card"><div class="top"><b>換高效率空調</b><span class="badge bad"><i>✕</i>不太划算</span></div><p>回本要約 42 年,通常比設備壽命還長。</p><p class="muted">同一種空調系統,換成更高效率的設備:冷氣 / 冰水主機效率提高 25%、鍋爐與瓦斯加熱提高到 95%、風扇效率至少 70%。</p><ul><li>總能源少用 5.7%</li><li>少用電 371,434 度、少用天然氣 3,123 度</li><li>投資約 US$ 2,019,249</li><li>電價漲 30% 時約 32 年</li><li>電價漲 80% 時約 23 年</li></ul><p class="muted">冰水主機 COP 5.33 → 6.66、鍋爐效率 0.90 → 0.95、風扇效率 0.61 → 0.70</p></div>
+</div></section>
+<h2>這些數字怎麼來的</h2>
+<ul class="notes">
+<li>用電腦模擬這棟建築一整年每小時的用電與用氣(EnergyPlus),再分別套用每個措施重算一次,比較差多少。</li>
+<li>價格假設(USD):電 US$ 0.13/度、天然氣 US$ 0.04/度;
+ 貼膜 US$ 40/m² 玻璃、換燈具 US$ 20/m² 樓地板、
+ 屋頂反射漆 US$ 12/m² 屋頂、加強隔熱 US$ 45/m² 外牆加屋頂、
+ 換空調 US$ 90/m² 樓地板。都是估計值,不是報價,改 costs.json 就會換。</li>
+<li>「換高效率空調」的投資是整套更換的費用,所以回本很久。實務上多半是設備到了汰換年限才換,
+ 這時只需要算「高效率款比一般款貴多少」,回本會快很多。
+ 氣密與節能設備沒有成本資料,只算省多少。</li>
+<li>回本年數 = 投資 ÷ 每年省的錢。沒有算利息、維修與設備壽命。
+ 判讀:8 年內「值得考慮」、8–15 年「看情況」、超過 15 年「不太划算」。</li>
+<li>氣象資料目前用美國芝加哥(冬天冷、要開暖氣),換成台灣城市結果會不一樣。</li>
+<li>「度」就是 kWh;天然氣也換算成 kWh,方便和電放在一起比較。</li>
+</ul>
+
+<section><h2>資料來源</h2>
+<p class="muted">模型:<a href="https://www.energycodes.gov/prototype-building-models">DOE Building Energy Codes Program — Prototype Building Models</a>
+(PNNL,ASHRAE 90.1-2022 Appendix G,Hospital,Tampa)。氣象:EnergyPlus 內附 Tampa Intl AP TMY3。
+金額以 US$ 計,電價 0.13/kWh、天然氣 0.04/kWh、施工單價均為假設值,僅供比較,不是報價。</p>
+</section>
+</main></body></html>
